@@ -51,14 +51,14 @@ namespace Drustvena_mreza_clanovi_i_grupe.Controllers
         [HttpPut("{id}")]
         public ActionResult<User> Update(int id, [FromBody] User uUser)
         {
-            if(string.IsNullOrWhiteSpace(uUser.KorisnickoIme) ||
+            if (string.IsNullOrWhiteSpace(uUser.KorisnickoIme) ||
                 string.IsNullOrWhiteSpace(uUser.Ime) ||
                 string.IsNullOrWhiteSpace(uUser.Prezime))
             {
                 return BadRequest();
             }
 
-            if (!UserRepository.Data.ContainsKey(id))  
+            if (!UserRepository.Data.ContainsKey(id))
             {
                 return NotFound();
             }
@@ -72,6 +72,20 @@ namespace Drustvena_mreza_clanovi_i_grupe.Controllers
             repo.Save();
 
             return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            if(!UserRepository.Data.ContainsKey(id))
+            {
+                return NotFound();
+            }
+
+            UserRepository.Data.Remove(id);
+            repo.Save();
+
+            return NoContent();
         }
 
 

@@ -11,6 +11,9 @@ namespace Drustvena_mreza_clanovi_i_grupe.Repositories
         {
             if (Data == null)
             {
+
+                _ = new UserRepository();           
+                _ = new GroupUsersRepository();     
                 Load();
             }
         }
@@ -28,6 +31,20 @@ namespace Drustvena_mreza_clanovi_i_grupe.Repositories
                 string ime = attributes[1];
                 DateTime datum = DateTime.Parse(attributes[2]);
                 Data[id] = new Group(id, ime, datum);
+
+                Group group = new Group(id, ime, datum);
+                Data[id] = group;
+
+                if (GroupUsersRepository.Data.ContainsKey(id))
+                {
+                    List<int> userIds = GroupUsersRepository.Data[id];
+
+                    foreach(int userId in userIds)
+                    {
+                        User user = UserRepository.Data[userId];
+                        group.Korisnici.Add(user);
+                    }
+                }
             }
         }
 

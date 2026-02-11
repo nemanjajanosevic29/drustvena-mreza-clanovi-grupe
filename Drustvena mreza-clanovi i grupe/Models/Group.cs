@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public string Ime { get; set; }
         public DateTime DatumOsnivanja { get; set; }
+        public List<User> Korisnici { get; set; } = new List<User>();
 
         public Group(int id, string ime, DateTime datumOsnivanja)
         {
