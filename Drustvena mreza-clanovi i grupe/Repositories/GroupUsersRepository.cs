@@ -47,6 +47,7 @@ namespace Drustvena_mreza_clanovi_i_grupe.Repositories
                     lines.Add($"{user.Id},{group.Id}");
                 }
             }
+            File.WriteAllLines(putanja, lines);
         }
 
     }
